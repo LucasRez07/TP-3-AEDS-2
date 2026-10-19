@@ -231,7 +231,7 @@ void quicksort(Veiculo* c, int esq, int dir){ //Realizo o quicksort normalmente
 int main(){
     int id = 0, n, cont = 0;
     char* carro = (char*)malloc(1000); //Crio a string que receberá o format
-    Veiculo* carros = (Veiculo*)malloc(100*sizeof(Veiculo));
+    Veiculo* carros = (Veiculo*)malloc(500*sizeof(Veiculo));
 
      //Veiculo* cars = lerCsv("veiculos.csv", &n); //Mando o caminho, um do linux e um do windows, o que eu for usar eu descomento
      Veiculo* cars = lerCsv("/tmp/veiculos.csv", &n);

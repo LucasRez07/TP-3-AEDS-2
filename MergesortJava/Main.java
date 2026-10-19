@@ -207,34 +207,34 @@ class Veiculo{ //Crio a classe veículo para trabalhar com objetos da mesma
 public class Main{
 
 	public static void intercalar(Veiculo[] car, int e, int m, int d){
-		int iEsq, iDir, i, nEsq, nDir;
+		int iEsq, iDir, i, nEsq, nDir; //Crio os vetores auxiliares com seus respectivos tamanhos e índices
 		nEsq = (m+1) - e;
 		nDir = d - m;
 
-		String[] aux = {"bla", "bla"};
+		String[] aux = {"bla", "bla"}; //Crio duas variáveis quaisquer que irão compor o sentinela
 		Data dataAux = new Data(0, 0, 0);
 
-		Veiculo maior = new Veiculo(0, "marca", "modelo", 0, "categoria", aux, 0, 0.0, "transmissao", "tracao", 0x7FFFFFFF, 0.0, 0.0, false, dataAux);
+		Veiculo maior = new Veiculo(0, "marca", "modelo", 0, "categoria", aux, 0, 0.0, "transmissao", "tracao", 0x7FFFFFFF, 0.0, 0.0, false, dataAux); //Crio o veículo sentinela com o maior número no consumoCidade
 
-		Veiculo[] vetEsq = new Veiculo[nEsq+1];
+		Veiculo[] vetEsq = new Veiculo[nEsq+1]; //Crio os vetores auxiliares
 		Veiculo[] vetDir = new Veiculo[nDir+1];
 
 
-		vetEsq[nEsq] = maior;
+		vetEsq[nEsq] = maior; //Posiciono o sentinela na última posição de cada vetor
 		vetDir[nDir] = maior;
 
-		for(iEsq = 0; iEsq<nEsq; iEsq++){
+		for(iEsq = 0; iEsq<nEsq; iEsq++){ //Inicializo o vetor da esquerda
 		vetEsq[iEsq] = car[e + iEsq];		
 	}
 
-	for(iDir=0; iDir<nDir; iDir++){
+	for(iDir=0; iDir<nDir; iDir++){ //Inicializo o vetor da direita
 		vetDir[iDir] = car[m + 1 + iDir];
 	}
 
 	iEsq = 0;
 	iDir = 0;
-	for(i=e; i<=d; i++){
-			if(vetEsq[iEsq].getConsumoCidade() < vetDir[iDir].getConsumoCidade() || (vetEsq[iEsq].getConsumoCidade() == vetDir[iDir].getConsumoCidade() && vetEsq[iEsq].getCategoria().compareToIgnoreCase(vetDir[iDir].getCategoria()) < 0)){
+	for(i=e; i<=d; i++){ //Aqui faço a intercalação e ordenação dos vetores
+			if(vetEsq[iEsq].getConsumoCidade() < vetDir[iDir].getConsumoCidade() || (vetEsq[iEsq].getConsumoCidade() == vetDir[iDir].getConsumoCidade() && vetEsq[iEsq].getCategoria().compareToIgnoreCase(vetDir[iDir].getCategoria()) <= 0)){
 				car[i] = vetEsq[iEsq];
 				iEsq++;
 			}
@@ -245,12 +245,12 @@ public class Main{
 	}
 }
 
-public static void mergesort(Veiculo[] c, int esq, int dir){
+public static void mergesort(Veiculo[] c, int esq, int dir){ //Realizo as chamadas recursivas do mergesort
 	if(esq < dir){
 	int meio = (esq+dir)/2;
 	mergesort(c, esq, meio);
 	mergesort(c, meio+1, dir);
-	intercalar(c, esq, meio, dir);
+	intercalar(c, esq, meio, dir); //Chamo o intercalar que é onde começa a ordenação
 	}
 } 
 
@@ -270,7 +270,7 @@ public static void mergesort(Veiculo[] c, int esq, int dir){
 
                 for(int j = 0; j < cars.length; j++){
 
-                    if(id == cars[j].getId()){ //Se o id bater com o de algum carro do array formato ele e printo
+                    if(id == cars[j].getId()){ //Se o id bater com o de algum carro do array adiciono no vetor que será ordenado
                         carros[cont] = cars[j];
                         cont++;
                         j = cars.length; //Se achar dou j=cars.length para sair imediatamente do for e pular para o próximo
@@ -278,9 +278,9 @@ public static void mergesort(Veiculo[] c, int esq, int dir){
                 }
             }
 
-	    mergesort(carros, 0, cont-1);
+	    mergesort(carros, 0, cont-1); //Aqui chamo o método mergesort que ordenará o vetor por consumoCidade e em caso de empate por categoria
 
-	    for(int i=0; i<cont; i++){
+	    for(int i=0; i<cont; i++){ //Printo o vetor ordenado
 		resp = carros[i].format();
 	    	System.out.println("" + resp);
 	    }
